@@ -29,10 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `artikelen` (
   `ID` int(11) NOT NULL,
-  `naam` text NOT NULL,
+  `naam` varchar(100) NOT NULL,
   `omschrijving` text NOT NULL,
   `standaard_hoeveelheid` decimal(6,2) NOT NULL,
-  `eenheid` text NOT NULL,
+  `eenheid` varchar(100) NOT NULL,
   `prijs` decimal(6,2) NOT NULL,
   `caloriën` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -62,10 +62,10 @@ INSERT INTO `artikelen` (`ID`, `naam`, `omschrijving`, `standaard_hoeveelheid`, 
 
 CREATE TABLE `gebruikers` (
   `ID` int(11) NOT NULL,
-  `email` text NOT NULL,
-  `voornaam` text NOT NULL,
-  `achternaam` text NOT NULL,
-  `afbeelding` text NOT NULL
+  `email` varchar(100) NOT NULL,
+  `voornaam` varchar(100) NOT NULL,
+  `achternaam` varchar(100) NOT NULL,
+  `afbeelding` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -86,7 +86,7 @@ INSERT INTO `gebruikers` (`ID`, `email`, `voornaam`, `achternaam`, `afbeelding`)
 
 CREATE TABLE `ingrediënten` (
   `ID` int(11) NOT NULL,
-  `naam` text NOT NULL,
+  `naam` varchar(100) NOT NULL,
   `recept_ID` int(11) NOT NULL,
   `artikel_ID` int(11) NOT NULL,
   `hoeveelheid` int(11) NOT NULL
@@ -146,7 +146,7 @@ INSERT INTO `keuken_type` (`ID`, `record_type`, `omschrijving`) VALUES
 
 CREATE TABLE `recepten` (
   `ID` int(11) NOT NULL,
-  `naam` text NOT NULL,
+  `naam` varchar(100) NOT NULL,
   `korte_omschrijving` text NOT NULL,
   `lange_omschrijving` text NOT NULL,
   `keuken_ID` int(11) NOT NULL,
@@ -174,9 +174,9 @@ CREATE TABLE `recept_info` (
   `ID` int(11) NOT NULL,
   `record_type` varchar(1) NOT NULL,
   `recept_ID` int(11) NOT NULL,
-  `gebruiker_ID` int(11) NOT NULL,
-  `tekstveld` text NOT NULL,
-  `numeriekveld` int(11) NOT NULL
+  `gebruiker_ID` int(11),
+  `tekstveld` text,
+  `numeriekveld` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -235,6 +235,46 @@ ALTER TABLE `recepten`
 ALTER TABLE `recept_info`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `recept_ID` (`recept_ID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `artikelen`
+--
+ALTER TABLE `artikelen`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `gebruikers`
+--
+ALTER TABLE `gebruikers`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ingrediënten`
+--
+ALTER TABLE `ingrediënten`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `keuken_type`
+--
+ALTER TABLE `keuken_type`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `recepten`
+--
+ALTER TABLE `recepten`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `recept_info`
+--
+ALTER TABLE `recept_info`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
