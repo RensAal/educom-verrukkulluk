@@ -12,7 +12,6 @@ class artikel {
     public function selecteerArtikel($artikel_ID) {
 
         $sql = "select * from $this->table where ID = $artikel_ID";
-        echo $sql;
         
         $result = mysqli_query($this->connection, $sql);
         $artikel = mysqli_fetch_array($result, MYSQLI_ASSOC);
