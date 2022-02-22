@@ -2,7 +2,7 @@
 
 // Aanpassen naar je eigen omgeving
 define("USER", "root");
-define("PASSWORD", "root");
+define("PASSWORD", "");
 define("DATABASE", "verrukkulluk");
 define("HOST", "localhost");
 
@@ -11,10 +11,7 @@ class database {
     private $connection;
 
     public function __construct() {
-       $this->connectie = mysqli_connect(HOST, 
-                                         DATABASE, 
-                                         USER, 
-                                         PASSWORD);
+       $this->connection = mysqli_connect(HOST, USER, PASSWORD, DATABASE) OR die ( mysqli_connect_error() );
     }
 
     public function getConnection() {
