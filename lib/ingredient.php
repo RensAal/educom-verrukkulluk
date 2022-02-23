@@ -20,9 +20,8 @@ class ingredient {
             $artikel_ID = $ingredient['artikel_ID'];
             $artikel = new artikel($this->connection);
             $artikel_array = $artikel->selecteerArtikel($artikel_ID);
-            
-            $ingredienten[] = $ingredient + ['artikel' => $artikel_array];
-
+            unset($artikel_array['ID']);
+            $ingredienten[] = array_merge($ingredient, $artikel_array);
         }
 
         return($ingredienten);
