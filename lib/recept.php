@@ -10,22 +10,28 @@ class recept{
     }
   
     public function selecteerRecept($recept_ID, $gebruiker_ID) {
-
-        $sql = "select * from $this->table where ID = $recept_ID";
         
-        $result = mysqli_query($this->connection, $sql);
-        $recept = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        if (!is_array($recept_ID)) {$recept_ID = array($recept_ID);}
+
+        foreach($recept_ID as $ID){
+            $sql = "select * from $this->table where ID = $ID";
+            $result = mysqli_query($this->connection, $sql);
+            $recept = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+            $recept = $this->selecteerIngredienten($recept);
+            $recept = $this->berekenPrijs($recept);
+            $recept = $this->berekenCalorien($recept);
+    
+            $recept = $this->selecteerWaardering($recept);
+            $recept = $this->selecteerBereiding($recept);
+            $recept = $this->selecteerOpmerkingen($recept);
+            $recept = $this->selecteerFavoriet($recept, $gebruiker_ID);
+
+            $recepten[] = $recept;
+
+        }
         
-        $recept = $this->selecteerIngredienten($recept);
-        $recept = $this->berekenPrijs($recept);
-        $recept = $this->berekenCalorien($recept);
-
-        $recept = $this->selecteerWaardering($recept);
-        $recept = $this->selecteerBereiding($recept);
-        $recept = $this->selecteerOpmerkingen($recept);
-        $recept = $this->selecteerFavoriet($recept, $gebruiker_ID);
-
-        return($recept);
+        return($recepten);
     }
 
     private function selecteerIngredienten($recept) {
@@ -119,14 +125,14 @@ class recept{
         $i=0;
         foreach ($recept['ingredienten'] as $ingredient){
 
-            $artikel_prijs = $ingredient['artikel']['prijs'];
-            $standaard_hoeveelheid = $ingredient['artikel']['standaard_hoeveelheid'];
+            $artikel_prijs = $ingredient['prijs'];
+            $standaard_hoeveelheid = $ingredient['standaard_hoeveelheid'];
 
             $hoeveelheid = $ingredient['hoeveelheid'];
 
             $prijs = ceil($hoeveelheid / $standaard_hoeveelheid) * $artikel_prijs;
 
-            $ingredient += ['prijs'=> $prijs];
+            $ingredient += ['ingredient_prijs'=> $prijs];
 
             $recept['ingredienten'][$i] = $ingredient;
             $i++;
@@ -142,14 +148,14 @@ class recept{
         $i = 0;
         foreach ($recept['ingredienten'] as $ingredient){
 
-            $artikel_calorien = $ingredient['artikel']['caloriën'];
-            $standaard_hoeveelheid = $ingredient['artikel']['standaard_hoeveelheid'];
+            $artikel_calorien = $ingredient['caloriën'];
+            $standaard_hoeveelheid = $ingredient['standaard_hoeveelheid'];
 
             $hoeveelheid = $ingredient['hoeveelheid'];
 
-            $calorien = ($hoeveelheid / $standaard_hoeveelheid) * $artikel_calorien;
+            $calorien = round(($hoeveelheid / $standaard_hoeveelheid) * $artikel_calorien);
 
-            $ingredient += ['calorien'=> $calorien];
+            $ingredient += ['ingredient_calorien'=> $calorien];
 
             $recept['ingredienten'][$i] = $ingredient;
 
