@@ -14,27 +14,33 @@ class recept_info {
         $sql = "select * from $this->table where recept_ID = $recept_ID";
         $result = mysqli_query($this->connection, $sql);
         
-        $i = 0;
         while($recept_info = mysqli_fetch_array($result, MYSQLI_ASSOC)){
-            
-            $recept_info_array[$i] = $recept_info;
-                        
-            $i++;
+                     
+            $recept_info = $this->selecteerGebruiker($recept_info);
+
+            $recept_info_array[] = $recept_info;
+
         }
 
         return($recept_info_array);
 
     }
 
-    public function getGebruiker($recept_info_ID) {
-
-        $recept_info = $this->selecteerRecept_info($recept_info_ID); 
+    private function selecteerGebruiker($recept_info) {
 
         $gebruiker_ID = NULL;
-        if ($recept_info['record_type'] == "O" OR $recept_info['record_type'] == "F"){
+        if ($recept_info['record_type'] == "O" /*OR $recept_info['record_type'] == "F"*/){
+            
             $gebruiker_ID = $recept_info['gebruiker_ID'];
+            
+            $gebruiker = new gebruiker($this->connection);
+            $gebruiker_array = $gebruiker->selecteerGebruiker($gebruiker_ID);
+            
+            $recept_info += ['gebruiker' => $gebruiker_array];
+
         }
 
+        return ($recept_info);
     }
 
     public function addFavoriet($recept_ID, $gebruiker_ID) {
@@ -45,9 +51,9 @@ class recept_info {
 
     }
 
-    public function deleteFavoriet($recept_info_ID) {
+    public function deleteFavoriet($recept_ID, $gebruiker_ID) {
 
-        $sql = "delete from $this->table where ID = $recept_info_ID";
+        $sql = "delete from $this->table where recept_ID = $recept_ID AND gebruiker_ID = $gebruiker_ID";
         
         $result = mysqli_query($this->connection, $sql);
 
