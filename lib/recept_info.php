@@ -9,14 +9,20 @@ class recept_info {
         $this->connection = $connection;
     }
   
-    public function selecteerRecept_info($recept_info_ID) {
-
-        $sql = "select * from $this->table where ID = $recept_info_ID";
+    public function selecteerRecept_info($recept_ID) {
         
+        $sql = "select * from $this->table where recept_ID = $recept_ID";
         $result = mysqli_query($this->connection, $sql);
-        $recept_info = mysqli_fetch_array($result, MYSQLI_ASSOC);
+        
+        $i = 0;
+        while($recept_info = mysqli_fetch_array($result, MYSQLI_ASSOC)){
+            
+            $recept_info_array[$i] = $recept_info;
+                        
+            $i++;
+        }
 
-        return($recept_info);
+        return($recept_info_array);
 
     }
 
