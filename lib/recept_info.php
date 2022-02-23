@@ -36,7 +36,7 @@ class recept_info {
             $gebruiker = new gebruiker($this->connection);
             $gebruiker_array = $gebruiker->selecteerGebruiker($gebruiker_ID);
             
-            $recept_info += ['gebruiker' => $gebruiker_array];
+            $recept_info = array_merge($recept_info, $gebruiker_array);
 
         }
 
