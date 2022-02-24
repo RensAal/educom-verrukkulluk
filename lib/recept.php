@@ -9,27 +9,28 @@ class recept{
         $this->connection = $connection;
     }
   
-    public function selecteerRecept($recept_ID, $gebruiker_ID) {
+    public function selecteerRecept($recept_ID = NULL) {
         
-        if (!is_array($recept_ID)) {$recept_ID = array($recept_ID);}
-
-        foreach($recept_ID as $ID){
-            $sql = "select * from $this->table where ID = $ID";
+            
+            $sql = "select * from $this->table"; 
+            if($recept_ID != NULL) {$sql .= " where ID = $ID";}
+            
             $result = mysqli_query($this->connection, $sql);
-            $recept = mysqli_fetch_array($result, MYSQLI_ASSOC);
+            
+            while($recept = mysqli_fetch_array($result, MYSQLI_ASSOC)){
 
-            $recept = $this->selecteerIngredienten($recept);
-            $recept = $this->berekenPrijs($recept);
-            $recept = $this->berekenCalorien($recept);
+                $recept = $this->selecteerIngredienten($recept);
+                $recept = $this->berekenPrijs($recept);
+                $recept = $this->berekenCalorien($recept);
     
-            $recept = $this->selecteerWaardering($recept);
-            $recept = $this->selecteerBereiding($recept);
-            $recept = $this->selecteerOpmerkingen($recept);
-            $recept = $this->selecteerFavoriet($recept, $gebruiker_ID);
+                $recept = $this->selecteerWaardering($recept);
+                $recept = $this->selecteerBereiding($recept);
+                $recept = $this->selecteerOpmerkingen($recept);
+                //$recept = $this->selecteerFavoriet($recept, $gebruiker_ID);
 
-            $recepten[] = $recept;
+                $recepten[] = $recept;
 
-        }
+            }
         
         return($recepten);
     }
