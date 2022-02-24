@@ -3,6 +3,7 @@
 
 {% block header %}
 <img src="assets/img/logo-v2.png"/>
+
 {% endblock %}
 
 
@@ -21,17 +22,17 @@
     <ul>
     {% for record in data %}
         <li>
-            <img src="{{ record.foto }}" style="width: 100px; heigfht: 100px;">
+            <img src="{{ record.afbeelding }}" style="width: 100px; heigfht: 100px;">
 
-            {{ record.title }}
+            {{ record.naam }}
             {# sub-loop #}
             <ul>
                 {% for ingr in record.ingredienten %}
                     <li>
-                        <span {% if ingr.id < 2 %}style='color: #F00'{% endif %}>{{  ingr.naam }}</span>
+                        <span {% if ingr.ID < 2 %}style='color: #F00'{% endif %}>{{  ingr.naam }}</span>
 
                         {# if #}
-                        {%  if ingr.id == 3 %}
+                        {%  if ingr.ID == 3 %}
                             <strong>Dit is ID 3!</strong>
                         {%  endif  %}
                     </li>
@@ -42,7 +43,7 @@
     <ul>
      {# Dump #}
        <pre>
-        {{ dump(data) }}
+        {#{{ dump(data) }}#}
        </pre>
 
 {% endblock %}
