@@ -12,38 +12,36 @@
     {# Dit is commentaar #}
 
     {# Print #}
-    <h1>Heading #1</h1>
+    {# <h1>Heading #1</h1>
     <h2>Heading #2</h2>
     <h3>Heading #3 t/m 5</h3>
 
-    <h4>Dit is de template {{  title }}</h4>
+    <h4>Dit is de template {{  title }}</h4> #}
 
 {# Loop #}
-    <ul>
+    <div>
     {% for record in data %}
-        <li>
-            <img src="{{ record.afbeelding }}" style="width: 100px; heigfht: 100px;">
+        {% if record.ID % 2 != 0 %}
+            <div class="row">
+            
+        {%  endif  %}
+            <div class="col-md-6 recept">
+                
+                    <img src="assets/img/logo-v2.png" class="img-fluid"">
 
-            {{ record.naam }}
-            {# sub-loop #}
-            <ul>
-                {% for ingr in record.ingredienten %}
-                    <li>
-                        <span {% if ingr.ID < 2 %}style='color: #F00'{% endif %}>{{  ingr.naam }}</span>
-
-                        {# if #}
-                        {%  if ingr.ID == 3 %}
-                            <strong>Dit is ID 3!</strong>
-                        {%  endif  %}
-                    </li>
-                {% endfor %}
-            </ul>
-        </li>
+                    <br> <br> <h1 style="color: var(--darker-green);"> {{ record.naam }}  </h1>
+                    <br> <br> {{ record.korte_omschrijving }}
+                    
+         
+        {% if record.ID % 2 == 0 %}
+            </div>
+        {%  endif  %}
+    </div>
     {% endfor %}
-    <ul>
+    </div>
      {# Dump #}
-       <pre>
-        {#{{ dump(data) }}#}
-       </pre>
+       {# <pre>
+        {{ dump(data) }}
+       </pre> #}
 
 {% endblock %}
