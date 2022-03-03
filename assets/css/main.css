@@ -58,23 +58,19 @@ html, body {
     background: var(--lighter-brown);
     height: 600px;
 
+
 }
 
 .recept {
     background: var(--kahki);
     height: 750px;
-    /*text-align: center;*/
-    /*padding: 15px !important; */
-    
-    border-left: 50px solid #FFF;
-    border-bottom: 50px solid #FFF;
 
 }
 
 .agenda {
     background: var(--lighter-green);
     height: 1000px;
-    
+
 
 
 }
@@ -83,14 +79,14 @@ html, body {
 .login {
     background: var(--lighter-red);
     height: 500px;
-    border-top: 50px solid #FFF;
+
 
 
 
 }
 
-.content{
-    border: 50px solid #FFF;
+.content {
+
 }
 
 .footer {

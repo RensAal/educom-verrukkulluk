@@ -16,17 +16,19 @@
 </html>
 
 <body>
-<div class="container-fluid">
+<div class="container-fluid overflow-hidden">
 
-    <div class="row">
+    <div class="row" >
         <div class="col-md-12 header">
+
          {% block header %}
 
         {% endblock %}    
+
         </div>
     </div>
 
-    <div class="row content">
+    <div class="row">
         <div class="col-md-3">
             {# <i class="fa fa-calendar"></i> FontAwesome <a href="https://fontawesome.com/icons?d=gallery&m=free">Documentation</a><br> #}
             {# <i class="fa fa-file-pdf"></i><a href="https://www.layoutit.com/build">Layout-it</a> #}
@@ -41,7 +43,6 @@
 
         </div>
         <div class="col-md-9 recepten">
-            {# <h2>Content</h2> #}
             {%  block content %}
             {%  endblock %}
         </div>

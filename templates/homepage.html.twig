@@ -22,16 +22,17 @@
     <div>
     {% for record in data %}
         {% if record.ID % 2 != 0 %}
-            <div class="row">
+            <div class="row ">
             
         {%  endif  %}
-            <div class="col-md-6 recept">
-                
-                    <img src="assets/img/logo-v2.png" class="img-fluid"">
-
+            <div class="col-sm-6 recept">
+                          
+                    <img src="assets/img/logo-v2.png" class="img-fluid">
+                <div class="p-3">
+ 
                     <br> <br> <h1 style="color: var(--darker-green);"> {{ record.naam }}  </h1>
                     <br> <br> {{ record.korte_omschrijving }}
-                    
+                </div>
          
         {% if record.ID % 2 == 0 %}
             </div>
