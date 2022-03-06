@@ -44,13 +44,14 @@ h2 {
 
 h3, h4, h5 {
     font-size: 32px;
+    display: inline !important;
 }
 
 
 /** HTML / BODY **/
 html, body {
     font-family: "Helvetica Neue", Arial, SansSerif;
-    font-size: 16px;
+    font-size: 16px ;
     
 }
 
@@ -75,6 +76,45 @@ html, body {
 
 }
 
+.button {
+    background-color: var(--darker-red) !important;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    padding: 0px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    font-family: var(--heading) !important;
+  }
+  
+  .icon {
+    color: var(--darker-red)!important;
+    font-size: 25px;
+  }
+
+  .rating {
+    color: var(--lighter-orange)!important;
+    font-size: 25px;
+  }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto; 
+    }
+
+    .left {
+        margin-left: 0;
+        margin-right: auto 
+    }
+
+    .right {
+        margin-left: auto;
+        margin-right: 0; 
+    }
+
 
 .login {
     background: var(--lighter-red);
@@ -88,6 +128,16 @@ html, body {
 .content {
 
 }
+
+.stap {
+    height: 100px;
+    width: 100px;
+    background: var(--lighter-orange);
+    text-align: center;
+    border-radius: 50%;
+    color: white;
+    font-size: 75px;
+  }
 
 .footer {
     background: var(--lighter-orange);

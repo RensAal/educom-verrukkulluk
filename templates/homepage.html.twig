@@ -2,8 +2,9 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-<img src="assets/img/logo-v2.png"/>
-
+   <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=homepage">
+        <img src="assets/img/logo-v2.png"/>
+    </a>
 {% endblock %}
 
 
@@ -23,21 +24,54 @@
     {% for record in data %}
         {% if record.ID % 2 != 0 %}
             <div class="row ">
-            
         {%  endif  %}
-            <div class="col-sm-6 recept">
-                          
+
+            <div class="col-sm-6 recept gy-5">
+                
+                <div class="row">
                     <img src="assets/img/logo-v2.png" class="img-fluid">
-                <div class="p-3">
- 
-                    <br> <br> <h1 style="color: var(--darker-green);"> {{ record.naam }}  </h1>
-                    <br> <br> {{ record.korte_omschrijving }}
                 </div>
-         
+
+                <div class="row p-3">
+                    <div class="col-sm-6">
+                        <h1 style="color: var(--darker-green);"> {{ record.naam }}  </h1>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        {% for i in 0..4 %}
+                            {% if record.waardering > i %}
+                                <i class="fas fa-star rating"></i> 
+                            {% else %}
+                                <i class="far fa-star rating"></i> 
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="row p-3" style="height: 200px;">
+                    <div class="col-sm-12">
+                                {{ record.korte_omschrijving }}
+                    </div>
+                </div>
+
+                <div class="row p-3">
+                    <div class="col-sm-6">
+                        <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID={{record.ID}}&action=detail">
+                            <button class="button">Smullen! </button>
+                        </a>
+
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <i class="fas fa-user icon"></i> <font size="5">4 </font>
+                        <i class="fas fa-euro-sign icon"></i> <font size="5">{{ record.totaal_prijs|round(0, 'ceil') }},- </font>
+                        <i class="fas fa-fire icon"></i> <font size="5">{{ record.totaal_calorien|round(0, 'ceil') }}</font>
+                    </div>
+                </div>
+
+            </div>
+
         {% if record.ID % 2 == 0 %}
             </div>
         {%  endif  %}
-    </div>
     {% endfor %}
     </div>
      {# Dump #}

@@ -32,8 +32,9 @@ $recept = new recept($db->getConnection());
 URL:
 http://localhost/index.php?recept_ID=4&action=detail
 */
-$recept_ID = isset($_GET["recept_ID"]) ? $_GET["recept_ID"] : "";
+$recept_ID = isset($_GET["recept_ID"]) ? $_GET["recept_ID"] : "1";
 $action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
+$detail = isset($_GET["detail"]) ? $_GET["detail"] : "ingredients";
 
 switch($action) {
 
@@ -45,10 +46,30 @@ switch($action) {
     }
 
     case "detail": {
-        $data = $recept->selecteerRecept($recept_id);
-        $template = 'detail.html.twig';
-        $title = "detail pagina";
-        break;
+        switch($detail) {
+
+            case "ingredients": {
+                $data = $recept->selecteerRecept();
+                $template = 'detail_ingredients.html.twig';
+                $title = "detail pagina";
+                break;
+            }
+        
+            case "steps": {
+                $data = $recept->selecteerRecept($recept_ID);
+                $template = 'detail_steps.html.twig';
+                $title = "detail pagina";
+                break;
+            }
+
+            case "remarks": {
+                $data = $recept->selecteerRecept($recept_ID);
+                $template = 'detail_remarks.html.twig';
+                $title = "detail pagina";
+                break;
+            }
+        
+        }
     }
 
     /// etc

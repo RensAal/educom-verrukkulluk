@@ -9,9 +9,9 @@ class keuken_type {
         $this->connection = $connection;
     }
   
-    public function selecteerKeuken_type($keuken_type_ID) {
+    public function selecteerKeuken_type($ID) {
 
-        $sql = "select * from $this->table where ID = $keuken_type_ID";
+        $sql = "select * from $this->table where ID = $ID";
         
         $result = mysqli_query($this->connection, $sql);
         $keuken_type = mysqli_fetch_array($result, MYSQLI_ASSOC);
