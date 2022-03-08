@@ -119,8 +119,9 @@ html, body {
 .login {
     background: var(--lighter-red);
     height: 500px;
+}
 
-
+.tab {
 
 
 }

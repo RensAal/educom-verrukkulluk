@@ -1,24 +1,21 @@
 {% extends "detail.html.twig" %}
 
 {% block detail %}
+
 {# Opmerkingen #}
-                <div class="row">
 
-                    {% for opmerking in record['opmerkingen'] %}
+    {% for opmerking in record['opmerkingen'] %}
                         
-                        <div class="col-sm-3 align-items-center">
-                        
-                             <img src="assets/img/verrukkulluk-burger.png" class="center" width= "100px">
-                        </div>
-                        <div class="col-sm-9">
-                            <h3 style="color: var(--darker-green);"> {{opmerking.voornaam }} {{opmerking.achternaam }}  </h3>
-                            <br>
-                            <p> {{opmerking.tekstveld}} </p>
-                            
-                            <br> <br>
-
-                        </div>
-                    {% endfor %}
-                </div>
+        <div class="col-sm-3 align-items-center">
+            <img src="assets/img/verrukkulluk-burger.png" class="center" width= "100px">
+        </div>
+        <div class="col-sm-9">
+            <h3 style="color: var(--darker-green);"> {{opmerking.voornaam }} {{opmerking.achternaam }}  </h3>
+            <br>
+            <p> {{opmerking.tekstveld}} </p>
+            <br> <br>
+        </div>
+                    
+    {% endfor %}
 
 {% endblock %}

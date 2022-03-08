@@ -49,7 +49,7 @@ switch($action) {
         switch($detail) {
 
             case "ingredients": {
-                $data = $recept->selecteerRecept();
+                $data = $recept->selecteerRecept($recept_ID);
                 $template = 'detail_ingredients.html.twig';
                 $title = "detail pagina";
                 break;
