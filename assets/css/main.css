@@ -99,6 +99,13 @@ html, body {
     font-size: 25px;
   }
 
+  .overlay { 
+    position:absolute;
+    z-index:12;
+    top:10;
+    left:10;
+  }
+
     .center {
         display: block;
         margin-left: auto;

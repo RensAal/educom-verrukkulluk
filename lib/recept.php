@@ -9,7 +9,7 @@ class recept{
         $this->connection = $connection;
     }
   
-    public function selecteerRecept($recept_ID = NULL) {
+    public function selecteerRecept($recept_ID = NULL, $gebruiker_ID = NULL) {
         
             
             $sql = "select * from $this->table"; 
@@ -26,8 +26,9 @@ class recept{
                 $recept = $this->selecteerWaardering($recept);
                 $recept = $this->selecteerBereiding($recept);
                 $recept = $this->selecteerOpmerkingen($recept);
-                //$recept = $this->selecteerFavoriet($recept, $gebruiker_ID);
-
+                
+                if($gebruiker_ID != NULL) {$recept = $this->selecteerFavoriet($recept, $gebruiker_ID);}
+                
                 $recept = $this->selecteerKeuken($recept);
                 $recept = $this->selecteerType($recept);
 

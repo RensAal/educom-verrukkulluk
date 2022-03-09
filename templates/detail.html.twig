@@ -1,9 +1,12 @@
 {% extends "main.html.twig" %}
 
 {% block header %}
-    <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=homepage">
-        <img src="assets/img/logo-v2.png"/>
-    </a>
+    <div class="overlay">
+                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=homepage">
+                    <img src="assets/img/logo-v2.png" width=500px/>
+                </a>
+    </div>
+    <img class="d-block w-100" alt="Carousel Bootstrap First" src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
 {% endblock %}
 
 {% block content %}
@@ -58,8 +61,12 @@
                     <button class="button">Op lijst! </button>
                 </div>
                 <div class="col-sm-6 text-right">
+                {% if record.favoriet %}
                     <i class="fas fa-heart icon"></i>
+                {% else %}  
                     <i class="far fa-heart icon"></i>
+                {% endif %}
+
                 </div>
             </div>
         </div>
@@ -70,23 +77,23 @@
 
 
     <div class="row">
-		<div class="col-md-12">
-			
-				<ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#ingrediënten">
+		<div class="col-md-12 gy-5">
+			  
+            <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#ingrediënten">
                         <h3 style="color: var(--darker-green);"> Ingrediënten </h3>
                     </a></li>
-                    <li><a data-toggle="tab" href="#bereidingswijze">
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#bereidingswijze">
                         <h3 style="color: var(--darker-green);"> Bereidingswijze </h3>
                     </a></li>
-                    <li><a data-toggle="tab" href="#opmerkingen">
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#opmerkingen">
                         <h3 style="color: var(--darker-green);"> Opmerkingen </h3>
                     </a></li>
-                </ul>
+                </ul>		
 
                 <div class="tab-content">
 
-                    <div id="ingrediënten" class="tab-pane fade in active">
+                    <div id="ingrediënten" class="tab-pane active">
                         <div class="row">
                             {% for ingredient in record['ingredienten'] %}
                                 <div class="col-sm-3 align-items-center">
@@ -102,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div id="bereidingswijze" class="tab-pane fade">
+                    <div id="bereidingswijze" class="container tab-pane fade"><br>
                         <div class="row">
                             {% for stap in record['bereiding'] %}
                                 <div class="col-sm-3 align-items-center">

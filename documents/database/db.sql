@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2022 at 12:41 PM
+-- Generation Time: Mar 09, 2022 at 12:13 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `artikelen` (
-  `ID` int(11) NOT NULL,
+  `ID` int(8) UNSIGNED NOT NULL,
   `naam` varchar(100) NOT NULL,
   `omschrijving` text NOT NULL,
   `standaard_hoeveelheid` decimal(6,2) NOT NULL,
@@ -61,7 +61,7 @@ INSERT INTO `artikelen` (`ID`, `naam`, `omschrijving`, `standaard_hoeveelheid`, 
 --
 
 CREATE TABLE `gebruikers` (
-  `ID` int(11) NOT NULL,
+  `ID` int(8) UNSIGNED NOT NULL,
   `email` varchar(100) NOT NULL,
   `voornaam` varchar(100) NOT NULL,
   `achternaam` varchar(100) NOT NULL,
@@ -85,8 +85,7 @@ INSERT INTO `gebruikers` (`ID`, `email`, `voornaam`, `achternaam`, `afbeelding`)
 --
 
 CREATE TABLE `ingrediënten` (
-  `ID` int(11) NOT NULL,
-  `naam` varchar(100) NOT NULL,
+  `ID` int(8) UNSIGNED NOT NULL,
   `recept_ID` int(11) NOT NULL,
   `artikel_ID` int(11) NOT NULL,
   `hoeveelheid` int(11) NOT NULL
@@ -96,22 +95,22 @@ CREATE TABLE `ingrediënten` (
 -- Dumping data for table `ingrediënten`
 --
 
-INSERT INTO `ingrediënten` (`ID`, `naam`, `recept_ID`, `artikel_ID`, `hoeveelheid`) VALUES
-(1, 'Pizzadeeg', 1, 1, 4),
-(2, 'Tomatensaus', 1, 2, 500),
-(3, 'Basilicum', 1, 4, 1),
-(4, 'Mozarella', 1, 3, 260),
-(5, 'Mie', 2, 5, 400),
-(6, 'Bami groenten', 2, 6, 800),
-(7, 'Bami kruiden', 2, 7, 30),
-(8, 'Varkensvlees', 2, 8, 500),
-(9, 'Mie', 3, 5, 400),
-(10, 'Bami groenten', 3, 6, 1000),
-(11, 'Bami kruiden', 3, 7, 30),
-(12, 'Ei', 3, 9, 4),
-(13, 'Schnitzel', 4, 10, 500),
-(14, 'Paneermeel ', 4, 11, 100),
-(15, 'Ei (losgeklopt)', 4, 9, 2);
+INSERT INTO `ingrediënten` (`ID`, `recept_ID`, `artikel_ID`, `hoeveelheid`) VALUES
+(1, 1, 1, 4),
+(2, 1, 2, 500),
+(3, 1, 4, 1),
+(4, 1, 3, 260),
+(5, 2, 5, 400),
+(6, 2, 6, 800),
+(7, 2, 7, 30),
+(8, 2, 8, 500),
+(9, 3, 5, 400),
+(10, 3, 6, 1000),
+(11, 3, 7, 30),
+(12, 3, 9, 4),
+(13, 4, 10, 500),
+(14, 4, 11, 100),
+(15, 4, 9, 2);
 
 -- --------------------------------------------------------
 
@@ -120,7 +119,7 @@ INSERT INTO `ingrediënten` (`ID`, `naam`, `recept_ID`, `artikel_ID`, `hoeveelhe
 --
 
 CREATE TABLE `keuken_type` (
-  `ID` int(11) NOT NULL,
+  `ID` int(8) UNSIGNED NOT NULL,
   `record_type` varchar(1) NOT NULL,
   `omschrijving` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -145,7 +144,7 @@ INSERT INTO `keuken_type` (`ID`, `record_type`, `omschrijving`) VALUES
 --
 
 CREATE TABLE `recepten` (
-  `ID` int(11) NOT NULL,
+  `ID` int(8) UNSIGNED NOT NULL,
   `naam` varchar(100) NOT NULL,
   `korte_omschrijving` text NOT NULL,
   `lange_omschrijving` text NOT NULL,
@@ -171,12 +170,12 @@ INSERT INTO `recepten` (`ID`, `naam`, `korte_omschrijving`, `lange_omschrijving`
 --
 
 CREATE TABLE `recept_info` (
-  `ID` int(11) NOT NULL,
+  `ID` int(8) UNSIGNED NOT NULL,
   `record_type` varchar(1) NOT NULL,
   `recept_ID` int(11) NOT NULL,
-  `gebruiker_ID` int(11),
-  `tekstveld` text,
-  `numeriekveld` int(11)
+  `gebruiker_ID` int(11) DEFAULT NULL,
+  `tekstveld` text DEFAULT NULL,
+  `numeriekveld` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -189,7 +188,16 @@ INSERT INTO `recept_info` (`ID`, `record_type`, `recept_ID`, `gebruiker_ID`, `te
 (3, 'O', 1, 3, 'Lekker!', 0),
 (4, 'W', 2, 0, '', 4),
 (5, 'F', 4, 3, '', 0),
-(6, 'O', 3, 4, 'Niet te vreten.', 0);
+(6, 'O', 3, 4, 'Niet te vreten.', 0),
+(7, 'F', 1, 2, NULL, NULL),
+(20, 'F', 2, 1, NULL, NULL),
+(21, 'F', 1, 1, NULL, NULL),
+(22, 'W', 1, 0, NULL, 5),
+(23, 'W', 3, 0, NULL, 1),
+(24, 'W', 1, 0, NULL, 5),
+(25, 'W', 3, 0, NULL, 1),
+(26, 'W', 4, 0, NULL, 3),
+(27, 'W', 4, 0, NULL, 3);
 
 --
 -- Indexes for dumped tables
@@ -244,62 +252,37 @@ ALTER TABLE `recept_info`
 -- AUTO_INCREMENT for table `artikelen`
 --
 ALTER TABLE `artikelen`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `gebruikers`
 --
 ALTER TABLE `gebruikers`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ingrediënten`
 --
 ALTER TABLE `ingrediënten`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `keuken_type`
 --
 ALTER TABLE `keuken_type`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `recepten`
 --
 ALTER TABLE `recepten`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `recept_info`
 --
 ALTER TABLE `recept_info`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `ingrediënten`
---
-ALTER TABLE `ingrediënten`
-  ADD CONSTRAINT `ingrediënten_ibfk_1` FOREIGN KEY (`recept_ID`) REFERENCES `recepten` (`ID`),
-  ADD CONSTRAINT `ingrediënten_ibfk_2` FOREIGN KEY (`artikel_ID`) REFERENCES `artikelen` (`ID`);
-
---
--- Constraints for table `recepten`
---
-ALTER TABLE `recepten`
-  ADD CONSTRAINT `recepten_ibfk_1` FOREIGN KEY (`keuken_ID`) REFERENCES `keuken_type` (`ID`),
-  ADD CONSTRAINT `recepten_ibfk_2` FOREIGN KEY (`type_ID`) REFERENCES `keuken_type` (`ID`);
-
---
--- Constraints for table `recept_info`
---
-ALTER TABLE `recept_info`
-  ADD CONSTRAINT `recept_info_ibfk_1` FOREIGN KEY (`recept_ID`) REFERENCES `recepten` (`ID`),
-  ADD CONSTRAINT `recept_info_ibfk_2` FOREIGN KEY (`gebruiker_ID`) REFERENCES `gebruikers` (`ID`);
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
