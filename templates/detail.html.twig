@@ -64,36 +64,79 @@
             </div>
         </div>
     </div>
-                
-                
-    <div class="row">
-        <div class="col-sm-2 gy-5">
-            <div class="tab">
-                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID={{record.ID}}&action=detail&detail=ingredients">
-                    <h3 style="color: var(--darker-green);"> Ingrediënten </h3>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-2 gy-5">
-            <div class="tab">
-                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID={{record.ID}}&action=detail&detail=steps">
-                    <h3 style="color: var(--darker-green);"> Bereidingswijze </h3>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-2 gy-5">
-            <div class="tab">
-                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID={{record.ID}}&action=detail&detail=remarks">
-                    <h3 style="color: var(--darker-green);"> Opmerkingen </h3>
-                </a>
-            </div>
-        </div>
-    </div>
+
+
+
+
 
     <div class="row">
-        {% block detail %}
-        {% endblock %}
-    </div>
+		<div class="col-md-12">
+			
+				<ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#ingrediënten">
+                        <h3 style="color: var(--darker-green);"> Ingrediënten </h3>
+                    </a></li>
+                    <li><a data-toggle="tab" href="#bereidingswijze">
+                        <h3 style="color: var(--darker-green);"> Bereidingswijze </h3>
+                    </a></li>
+                    <li><a data-toggle="tab" href="#opmerkingen">
+                        <h3 style="color: var(--darker-green);"> Opmerkingen </h3>
+                    </a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="ingrediënten" class="tab-pane fade in active">
+                        <div class="row">
+                            {% for ingredient in record['ingredienten'] %}
+                                <div class="col-sm-3 align-items-center">
+                                    <img src="assets/img/verrukkulluk-burger.png" class="center" width= "100px">
+                                </div>
+                                <div class="col-sm-9">
+                                    <h2 style="color: var(--darker-green);"> {{ ingredient.naam }}  </h2>
+                                    <p> {{ingredient.omschrijving}} </p>
+                                    <h3 style="color: var(--darker-green);"> Hoeveelheid: </h3> <font size="3">{{ ingredient.hoeveelheid }} {{ ingredient.eenheid }}</font>
+                                    <br> <br>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div id="bereidingswijze" class="tab-pane fade">
+                        <div class="row">
+                            {% for stap in record['bereiding'] %}
+                                <div class="col-sm-3 align-items-center">
+                                    <div class="stap"> {{stap.numeriekveld}}. </div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p> {{stap.tekstveld}} </p>
+                                    <br> <br>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div id="opmerkingen" class="tab-pane fade">
+                        <div class="row">
+                            {% for opmerking in record['opmerkingen'] %}
+                                <div class="col-sm-3 align-items-center">
+                                    <img src="assets/img/verrukkulluk-burger.png" class="center" width= "100px">
+                                </div>
+                                <div class="col-sm-9">
+                                    <h3 style="color: var(--darker-green);"> {{opmerking.voornaam }} {{opmerking.achternaam }}  </h3>
+                                    <br>
+                                    <p> {{opmerking.tekstveld}} </p>
+                                    <br> <br>
+                                </div>       
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                </div> 
+
+                
+		</div>
+	</div>
 
 {% endblock %}
 

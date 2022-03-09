@@ -46,30 +46,10 @@ switch($action) {
     }
 
     case "detail": {
-        switch($detail) {
-
-            case "ingredients": {
-                $data = $recept->selecteerRecept($recept_ID);
-                $template = 'detail_ingredients.html.twig';
-                $title = "detail pagina";
-                break;
-            }
-        
-            case "steps": {
-                $data = $recept->selecteerRecept($recept_ID);
-                $template = 'detail_steps.html.twig';
-                $title = "detail pagina";
-                break;
-            }
-
-            case "remarks": {
-                $data = $recept->selecteerRecept($recept_ID);
-                $template = 'detail_remarks.html.twig';
-                $title = "detail pagina";
-                break;
-            }
-        
-        }
+        $data = $recept->selecteerRecept($recept_ID);
+        $template = 'detail.html.twig';
+        $title = "detail pagina";
+        break;
     }
 
     /// etc
