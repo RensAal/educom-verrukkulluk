@@ -4,19 +4,55 @@
     <title>het is verrukkuluk! :: {{ TITEL }} </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-      
-
     <link rel="stylesheet" type="text/css" href="assets/bootstrap/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/fonts.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css" />
     
     <link rel="stylesheet" type="text/css" href="assets/css/main.css" />
-     
+    
+    
     <script type="text/javascript" language="javascript" src="assets/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" language="javascript" src="assets/jquery/jquery-3.5.1.js"></script>
 
-</html>
+    <script>
+                $(document).ready( function() {
+
+                    /* $(".rating").hover(
+                         function () {
+                             $(this).addClass("fas");
+                         },
+                         function () {
+                             $(this).removeClass("fas");
+                         }
+                     ); */  
+
+                    $(".rating").click( function() {
+                        var value = $(this).attr("data-value");
+                        
+                        $.ajax({
+                            //url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php",
+                            method: "POST",
+                            data: { rating: value },
+                            success: function(response) { 
+                                $('.rating').each( (index, elem) => {
+                                // remove the solid-class from the stars
+                                $(elem).removeClass("fas");
+                                var itemValue = $(elem).attr('data-value');
+                                if(itemValue <= value) {
+                                    $(elem).addClass("fas");
+                                }
+                                console.log(response)
+                        }) 
+                            }
+                        })
+
+                    })
+
+                });
+    </script>
+
+</head>
 
 <body>
 
@@ -26,7 +62,6 @@
         <div class="col-md-12">
 
         {% block header %}
-
         {% endblock %}    
 
         </div>
@@ -67,3 +102,5 @@
 </div>
 
 </body>
+
+</html>
