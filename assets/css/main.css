@@ -99,6 +99,11 @@ html, body {
     font-size: 25px;
   }
 
+  .favorite {
+    color: var(--darker-red)!important;
+    font-size: 25px;
+  }
+
   .overlay { 
     position:absolute;
     z-index:12;

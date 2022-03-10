@@ -16,40 +16,55 @@
     <script type="text/javascript" language="javascript" src="assets/jquery/jquery-3.5.1.js"></script>
 
     <script>
-                $(document).ready( function() {
+        $(document).ready( function() {
 
-                    /* $(".rating").hover(
-                         function () {
-                             $(this).addClass("fas");
-                         },
-                         function () {
-                             $(this).removeClass("fas");
-                         }
-                     ); */  
-
-                    $(".rating").click( function() {
-                        var value = $(this).attr("data-value");
-                        
-                        $.ajax({
-                            //url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php",
-                            method: "POST",
-                            data: { rating: value },
-                            success: function(response) { 
-                                $('.rating').each( (index, elem) => {
-                                // remove the solid-class from the stars
-                                $(elem).removeClass("fas");
-                                var itemValue = $(elem).attr('data-value');
-                                if(itemValue <= value) {
-                                    $(elem).addClass("fas");
-                                }
-                                console.log(response)
-                        }) 
+            $(".rating").click( function() {
+                var value = $(this).attr("data-value");
+                
+                $.ajax({
+                          
+                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID={{data[0].ID}}&action=waardering",
+                    method: "POST",
+                    data: { rating: value },
+                            
+                    success: function(response) { 
+                        $('.rating').each( (index, elem) => {
+                            // remove the solid-class from the stars
+                            $(elem).removeClass("fas");
+                            var itemValue = $(elem).attr('data-value');
+                            if(itemValue <= value) {
+                                $(elem).addClass("fas");
                             }
-                        })
+                            console.log(response)
+                        }) 
+                    }
+                })
 
-                    })
+            })
 
-                });
+            $(".favorite").click( function() {
+                
+                if ($(this).hasClass("fas")){var value = false;}
+                else {var value = true;}
+                
+                $.ajax({
+                          
+                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID={{data[0].ID}}&action=favoriet",
+                    method: "POST",
+                    data: { favorite: value },
+                           
+                    success: function(response) { 
+                        $('.favorite').each( (index, elem) => {
+                            if(!value){$(elem).removeClass("fas");}
+                            if(value){$(elem).addClass("fas");}
+                        })                   
+                            console.log(response) 
+                    }
+                })
+
+            })
+
+        });
     </script>
 
 </head>

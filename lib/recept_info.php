@@ -59,4 +59,12 @@ class recept_info {
 
     }
 
+    public function addWaardering($recept_ID, $waardering) {
+        
+        $sql = "insert into $this->table (record_type, recept_ID, numeriekveld) values('W', $recept_ID, $waardering)";
+
+        $result = mysqli_query($this->connection, $sql);
+
+    }
+
 }

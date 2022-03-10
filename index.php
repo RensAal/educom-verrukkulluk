@@ -25,7 +25,8 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 /// INIT
 $db = new database();
 $recept = new recept($db->getConnection());
-
+$recept_info = new recept_info($db->getConnection());
+$gebruiker_ID = 1;
 /// VERWERK
 
 /*
@@ -34,7 +35,6 @@ http://localhost/index.php?recept_ID=4&action=detail
 */
 $recept_ID = isset($_GET["recept_ID"]) ? $_GET["recept_ID"] : "1";
 $action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
-$detail = isset($_GET["detail"]) ? $_GET["detail"] : "ingredients";
 
 switch($action) {
 
@@ -49,6 +49,19 @@ switch($action) {
         $data = $recept->selecteerRecept($recept_ID, 1);
         $template = 'detail.html.twig';
         $title = "detail pagina";
+        break;
+    }
+
+    case "waardering": {
+        $rating = $_POST['rating'];
+        $recept_info->addWaardering($recept_ID, $rating);
+        break;
+    }
+
+    case "favoriet": {
+        $favorite = $_POST['favorite'];
+        if ($favorite == "true"){$recept_info->addFavoriet($recept_ID, $gebruiker_ID);}
+        if ($favorite == "false"){$recept_info->deleteFavoriet($recept_ID, $gebruiker_ID);}
         break;
     }
 
