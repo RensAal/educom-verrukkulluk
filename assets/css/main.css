@@ -63,7 +63,6 @@ html, body {
 }
 
 .recept {
-    background: var(--kahki);
     height: 750px;
 
 }
@@ -91,6 +90,11 @@ html, body {
   
   .icon {
     color: var(--darker-red)!important;
+    font-size: 25px;
+  }
+
+  .icon_green {
+    color: var(--darker-green)!important;
     font-size: 25px;
   }
 

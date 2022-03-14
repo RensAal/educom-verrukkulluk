@@ -26,6 +26,8 @@ $twig->addExtension(new \Twig\Extension\DebugExtension());
 $db = new database();
 $recept = new recept($db->getConnection());
 $recept_info = new recept_info($db->getConnection());
+$lijst = new boodschappenlijst($db->getConnection());
+
 $gebruiker_ID = 1;
 /// VERWERK
 
@@ -33,8 +35,11 @@ $gebruiker_ID = 1;
 URL:
 http://localhost/index.php?recept_ID=4&action=detail
 */
+
 $recept_ID = isset($_GET["recept_ID"]) ? $_GET["recept_ID"] : "1";
 $action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
+$artikel_ID = isset($_GET["artikel_ID"]) ? $_GET["artikel_ID"] : "";
+$hoeveelheid = isset($_GET["hoeveelheid"]) ? $_GET["hoeveelheid"] : "";
 
 switch($action) {
 
@@ -46,9 +51,41 @@ switch($action) {
     }
 
     case "detail": {
-        $data = $recept->selecteerRecept($recept_ID, 1);
+        $data = $recept->selecteerRecept($recept_ID, $gebruiker_ID);
         $template = 'detail.html.twig';
         $title = "detail pagina";
+        break;
+    }
+
+    case "lijst": {
+        $lijst->boodschappenToevoegen($recept_ID, $gebruiker_ID);
+        $data = $lijst->selecteerBoodschappenlijst($gebruiker_ID);
+        $template = 'lijst.html.twig';
+        $title = "lijst pagina";
+        break;
+    }
+
+    case "deleteLijst": {
+        $lijst->deleteLijst($gebruiker_ID);
+        $data = $lijst->selecteerBoodschappenlijst($gebruiker_ID);
+        $template = 'lijst.html.twig';
+        $title = "lijst pagina";
+        break;
+    }
+
+    case "deleteBoodschap": {
+        $lijst->deleteBoodschap($artikel_ID, $gebruiker_ID);
+        $data = $lijst->selecteerBoodschappenlijst($gebruiker_ID);
+        $template = 'lijst.html.twig';
+        $title = "lijst pagina";
+        break;
+    }
+
+    case "updateBoodschap": {
+        $lijst->updateBoodschap($artikel_ID, $gebruiker_ID, $hoeveelheid);
+        $data = $lijst->selecteerBoodschappenlijst($gebruiker_ID);
+        $template = 'lijst.html.twig';
+        $title = "lijst pagina";
         break;
     }
 
@@ -78,19 +115,20 @@ $template = $twig->load($template);
 /// En tonen die handel!
 echo $template->render(["title" => $title, "data" => $data]);
 
-
+/*
 /// INIT
-//$db = new database();
-//$recept = new recept($db->getConnection());
-//$lijst = new boodschappenlijst();
+$db = new database();
+$recept = new recept($db->getConnection());
+$lijst = new boodschappenlijst();
 
-//$recept_ID = [1, 1, 3, 4];
-//$gebruiker_ID = 1;
+$recept_ID = 1;
+$gebruiker_ID = 1;
 /// VERWERK 
-//$data = $recept->selecteerRecept($recept_ID, $gebruiker_ID);
+$data = $recept->selecteerRecept($recept_ID, $gebruiker_ID);
 
-//$data = $lijst->maakBoodschappenlijst($data);
+$data = $lijst->maakBoodschappenlijst($data);
 
 /// RETURN
-//echo "<br> <br>";
-//var_dump($data);
+echo "<br> <br>";
+var_dump($data);
+*/

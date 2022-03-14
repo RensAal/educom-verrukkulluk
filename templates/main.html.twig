@@ -64,6 +64,63 @@
 
             })
 
+            $(".updateBoodschap").click( function() {
+                
+                $.ajax({
+                          
+                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=updateBoodschap",
+                    method: "POST",
+                    data: { favorite: value },
+                           
+                    success: function(response) { 
+                        $('.favorite').each( (index, elem) => {
+                            if(!value){$(elem).removeClass("fas");}
+                            if(value){$(elem).addClass("fas");}
+                        })                   
+                            console.log(response) 
+                    }
+                })
+
+            })
+
+            $(".deleteBoodschap").click( function() {
+                
+             $.ajax({
+                          
+                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteBoodschap",
+                    method: "POST",
+                    data: { favorite: value },
+                           
+                    success: function(response) { 
+                        $('.favorite').each( (index, elem) => {
+                            if(!value){$(elem).removeClass("fas");}
+                            if(value){$(elem).addClass("fas");}
+                        })                   
+                            console.log(response) 
+                    }
+                })
+
+            })
+
+                $(".deleteLijst").click( function() {
+                
+                $.ajax({
+                          
+                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteLijst",
+                    method: "POST",
+                    data: { favorite: value },
+                           
+                    success: function(response) { 
+                        $('.favorite').each( (index, elem) => {
+                            if(!value){$(elem).removeClass("fas");}
+                            if(value){$(elem).addClass("fas");}
+                        })                   
+                            console.log(response) 
+                    }
+                })
+
+            })
+
         });
     </script>
 
