@@ -1,0 +1,75 @@
+{% extends "main.html.twig" %}
+
+{% block header %}
+    <div class="overlay">
+        <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=homepage">
+            <img src="assets/img/logo-v2.png" width=500px/>
+        </a>
+    </div>
+    <img class="d-block w-100" alt="Carousel Bootstrap First" src="https://www.layoutit.com/img/sports-q-c-1600-500-1.jpg" />
+{% endblock %}
+
+{% block content %}
+
+{% set totaal_prijs = 0 %}
+          
+        <div class="row">
+            <br> <br>
+            <h1 style="color: var(--darker-green);"> Boodschappenlijst  </h1>
+            <br> <br>
+        </div>
+        {% for record in data %}
+        <div class="row">
+            <div class="col-sm-2 align-items-center">
+                <img src="assets/img/verrukkulluk-burger.png" class="center" width= "100px">
+            </div>
+            <div class="col-sm-4">
+                <h2 style="color: var(--darker-green);"> {{ record.naam }}  </h2>
+                <p> {{record.omschrijving}} </p>
+                <h3 style="color: var(--darker-green);">Verpakking: </h3> <font size="3">{{ record.standaard_hoeveelheid|number_format(0, ',', '.') }} {{ record.eenheid }}</font>
+                <br> <br>
+            </div>
+            <div class="col-sm-2">
+                <br> <br>
+                <input type="text" id="aantal" value={{record.aantal}} size="3">
+                <br> <br>
+            </div>
+            <div class="col-sm-2">
+                <br> <br>
+                {% set prijs = record.prijs * record.aantal %}
+                <i class="fas fa-euro-sign icon"></i> <font size="5">{{ prijs|number_format(2, ',', '.')}} </font>
+                <br> <br>
+            </div>
+            <div class="col-sm-2">
+                <br> <br>
+
+                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=updateBoodschap&artikel_ID={{record.artikel_ID}}&hoeveelheid=1">
+                    <i class="fas fa-check icon_green"></i> <font size="5"> </font>
+                </a>
+                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteBoodschap&artikel_ID={{record.artikel_ID}}">
+                    <i class="fas fa-trash icon"></i> <font size="5"> </font>
+                </a>
+            </div>
+            {% set totaal_prijs = totaal_prijs + prijs %}
+        </div>
+        {% endfor %}
+    <div class="row">
+        <div class="col-sm-2">
+            <h1 style="color: var(--darker-red);"> Totaal: </h1>
+        </div>
+        <div class="col-sm-6">
+             
+        </div>
+        <div class="col-sm-2">
+            <i class="fas fa-euro-sign icon"></i> <font size="5">{{ totaal_prijs|number_format(2, ',', '.')}} </font>
+        </div>
+        <div class="col-sm-2">
+            <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteLijst">
+                <i class="fas fa-trash icon"></i> <font size="5"> </font>
+            </a>
+        </div>
+    </div>
+             
+
+{% endblock %}
+
