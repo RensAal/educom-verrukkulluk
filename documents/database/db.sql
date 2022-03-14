@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 09, 2022 at 12:13 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Gegenereerd op: 14 mrt 2022 om 13:13
+-- Serverversie: 10.4.22-MariaDB
+-- PHP-versie: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `artikelen`
+-- Tabelstructuur voor tabel `artikelen`
 --
 
 CREATE TABLE `artikelen` (
@@ -38,7 +38,7 @@ CREATE TABLE `artikelen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `artikelen`
+-- Gegevens worden geëxporteerd voor tabel `artikelen`
 --
 
 INSERT INTO `artikelen` (`ID`, `naam`, `omschrijving`, `standaard_hoeveelheid`, `eenheid`, `prijs`, `caloriën`) VALUES
@@ -57,7 +57,20 @@ INSERT INTO `artikelen` (`ID`, `naam`, `omschrijving`, `standaard_hoeveelheid`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gebruikers`
+-- Tabelstructuur voor tabel `boodschappen`
+--
+
+CREATE TABLE `boodschappen` (
+  `ID` int(8) UNSIGNED NOT NULL,
+  `gebruiker_ID` int(11) NOT NULL,
+  `artikel_ID` int(11) NOT NULL,
+  `aantal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `gebruikers`
 --
 
 CREATE TABLE `gebruikers` (
@@ -69,7 +82,7 @@ CREATE TABLE `gebruikers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `gebruikers`
+-- Gegevens worden geëxporteerd voor tabel `gebruikers`
 --
 
 INSERT INTO `gebruikers` (`ID`, `email`, `voornaam`, `achternaam`, `afbeelding`) VALUES
@@ -81,7 +94,7 @@ INSERT INTO `gebruikers` (`ID`, `email`, `voornaam`, `achternaam`, `afbeelding`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ingrediënten`
+-- Tabelstructuur voor tabel `ingrediënten`
 --
 
 CREATE TABLE `ingrediënten` (
@@ -92,7 +105,7 @@ CREATE TABLE `ingrediënten` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `ingrediënten`
+-- Gegevens worden geëxporteerd voor tabel `ingrediënten`
 --
 
 INSERT INTO `ingrediënten` (`ID`, `recept_ID`, `artikel_ID`, `hoeveelheid`) VALUES
@@ -115,7 +128,7 @@ INSERT INTO `ingrediënten` (`ID`, `recept_ID`, `artikel_ID`, `hoeveelheid`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keuken_type`
+-- Tabelstructuur voor tabel `keuken_type`
 --
 
 CREATE TABLE `keuken_type` (
@@ -125,7 +138,7 @@ CREATE TABLE `keuken_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `keuken_type`
+-- Gegevens worden geëxporteerd voor tabel `keuken_type`
 --
 
 INSERT INTO `keuken_type` (`ID`, `record_type`, `omschrijving`) VALUES
@@ -140,7 +153,7 @@ INSERT INTO `keuken_type` (`ID`, `record_type`, `omschrijving`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recepten`
+-- Tabelstructuur voor tabel `recepten`
 --
 
 CREATE TABLE `recepten` (
@@ -154,7 +167,7 @@ CREATE TABLE `recepten` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `recepten`
+-- Gegevens worden geëxporteerd voor tabel `recepten`
 --
 
 INSERT INTO `recepten` (`ID`, `naam`, `korte_omschrijving`, `lange_omschrijving`, `keuken_ID`, `type_ID`, `afbeelding`) VALUES
@@ -166,7 +179,7 @@ INSERT INTO `recepten` (`ID`, `naam`, `korte_omschrijving`, `lange_omschrijving`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `recept_info`
+-- Tabelstructuur voor tabel `recept_info`
 --
 
 CREATE TABLE `recept_info` (
@@ -179,7 +192,7 @@ CREATE TABLE `recept_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `recept_info`
+-- Gegevens worden geëxporteerd voor tabel `recept_info`
 --
 
 INSERT INTO `recept_info` (`ID`, `record_type`, `recept_ID`, `gebruiker_ID`, `tekstveld`, `numeriekveld`) VALUES
@@ -190,33 +203,118 @@ INSERT INTO `recept_info` (`ID`, `record_type`, `recept_ID`, `gebruiker_ID`, `te
 (5, 'F', 4, 3, '', 0),
 (6, 'O', 3, 4, 'Niet te vreten.', 0),
 (7, 'F', 1, 2, NULL, NULL),
-(20, 'F', 2, 1, NULL, NULL),
-(21, 'F', 1, 1, NULL, NULL),
 (22, 'W', 1, 0, NULL, 5),
 (23, 'W', 3, 0, NULL, 1),
 (24, 'W', 1, 0, NULL, 5),
 (25, 'W', 3, 0, NULL, 1),
 (26, 'W', 4, 0, NULL, 3),
-(27, 'W', 4, 0, NULL, 3);
+(27, 'W', 4, 0, NULL, 3),
+(28, 'W', 1, NULL, NULL, 1),
+(29, 'W', 1, NULL, NULL, 3),
+(30, 'W', 1, NULL, NULL, 3),
+(31, 'W', 1, NULL, NULL, 4),
+(32, 'W', 1, NULL, NULL, 2),
+(33, 'W', 1, NULL, NULL, 5),
+(34, 'W', 1, NULL, NULL, 3),
+(35, 'W', 1, NULL, NULL, 3),
+(36, 'W', 1, NULL, NULL, 3),
+(37, 'W', 1, NULL, NULL, 4),
+(38, 'W', 1, NULL, NULL, 2),
+(39, 'W', 2, NULL, NULL, 2),
+(40, 'W', 2, NULL, NULL, 4),
+(41, 'W', 2, NULL, NULL, 2),
+(42, 'W', 2, NULL, NULL, 5),
+(43, 'W', 2, NULL, NULL, 3),
+(44, 'W', 2, NULL, NULL, 1),
+(45, 'W', 1, NULL, NULL, 4),
+(46, 'W', 1, NULL, NULL, 2),
+(47, 'W', 1, NULL, NULL, 2),
+(48, 'W', 1, NULL, NULL, 3),
+(49, 'W', 1, NULL, NULL, 2),
+(50, 'W', 1, NULL, NULL, 4),
+(51, 'W', 1, NULL, NULL, 2),
+(52, 'W', 1, NULL, NULL, 3),
+(53, 'W', 1, NULL, NULL, 3),
+(54, 'W', 1, NULL, NULL, 3),
+(55, 'W', 1, NULL, NULL, 3),
+(56, 'W', 1, NULL, NULL, 2),
+(57, 'W', 1, NULL, NULL, 2),
+(58, 'W', 1, NULL, NULL, 2),
+(59, 'W', 1, NULL, NULL, 2),
+(60, 'W', 1, NULL, NULL, 3),
+(61, 'W', 1, NULL, NULL, 1),
+(62, 'W', 1, NULL, NULL, 4),
+(63, 'W', 1, NULL, NULL, 3),
+(64, 'W', 1, NULL, NULL, 2),
+(65, 'W', 1, NULL, NULL, 1),
+(66, 'W', 1, NULL, NULL, 3),
+(67, 'W', 1, NULL, NULL, 5),
+(68, 'W', 1, NULL, NULL, 1),
+(69, 'W', 1, NULL, NULL, 3),
+(70, 'W', 1, NULL, NULL, 3),
+(71, 'W', 1, NULL, NULL, 5),
+(72, 'W', 1, NULL, NULL, 1),
+(73, 'W', 1, NULL, NULL, 3),
+(74, 'W', 1, NULL, NULL, 3),
+(75, 'W', 1, NULL, NULL, 3),
+(76, 'W', 1, NULL, NULL, 3),
+(77, 'W', 1, NULL, NULL, 3),
+(78, 'W', 1, NULL, NULL, 5),
+(79, 'W', 1, NULL, NULL, 3),
+(80, 'W', 1, NULL, NULL, 2),
+(81, 'W', 1, NULL, NULL, 1),
+(82, 'W', 1, NULL, NULL, 5),
+(83, 'W', 1, NULL, NULL, 3),
+(84, 'W', 1, NULL, NULL, 3),
+(85, 'W', 1, NULL, NULL, 2),
+(86, 'W', 1, NULL, NULL, 2),
+(87, 'W', 1, NULL, NULL, 1),
+(88, 'W', 1, NULL, NULL, 5),
+(89, 'W', 1, NULL, NULL, 4),
+(90, 'W', 1, NULL, NULL, 3),
+(91, 'W', 1, NULL, NULL, 2),
+(92, 'W', 1, NULL, NULL, 2),
+(93, 'W', 1, NULL, NULL, 2),
+(94, 'W', 1, NULL, NULL, 4),
+(95, 'W', 1, NULL, NULL, 3),
+(96, 'W', 1, NULL, NULL, 3),
+(97, 'W', 2, NULL, NULL, 2),
+(98, 'W', 2, NULL, NULL, 1),
+(99, 'W', 2, NULL, NULL, 4),
+(100, 'W', 3, NULL, NULL, 4),
+(101, 'W', 3, NULL, NULL, 2),
+(102, 'W', 3, NULL, NULL, 3),
+(140, 'W', 3, NULL, NULL, 3),
+(169, 'F', 4, 1, NULL, NULL),
+(170, 'W', 1, NULL, NULL, 3),
+(173, 'F', 2, 1, NULL, NULL);
 
 --
--- Indexes for dumped tables
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `artikelen`
+-- Indexen voor tabel `artikelen`
 --
 ALTER TABLE `artikelen`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `gebruikers`
+-- Indexen voor tabel `boodschappen`
+--
+ALTER TABLE `boodschappen`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `gebruiker_ID` (`gebruiker_ID`),
+  ADD KEY `artikel_ID` (`artikel_ID`);
+
+--
+-- Indexen voor tabel `gebruikers`
 --
 ALTER TABLE `gebruikers`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `ingrediënten`
+-- Indexen voor tabel `ingrediënten`
 --
 ALTER TABLE `ingrediënten`
   ADD PRIMARY KEY (`ID`),
@@ -224,13 +322,13 @@ ALTER TABLE `ingrediënten`
   ADD KEY `artikel_ID` (`artikel_ID`);
 
 --
--- Indexes for table `keuken_type`
+-- Indexen voor tabel `keuken_type`
 --
 ALTER TABLE `keuken_type`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `recepten`
+-- Indexen voor tabel `recepten`
 --
 ALTER TABLE `recepten`
   ADD PRIMARY KEY (`ID`),
@@ -238,51 +336,57 @@ ALTER TABLE `recepten`
   ADD KEY `type_ID` (`type_ID`);
 
 --
--- Indexes for table `recept_info`
+-- Indexen voor tabel `recept_info`
 --
 ALTER TABLE `recept_info`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `recept_ID` (`recept_ID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `artikelen`
+-- AUTO_INCREMENT voor een tabel `artikelen`
 --
 ALTER TABLE `artikelen`
   MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `gebruikers`
+-- AUTO_INCREMENT voor een tabel `boodschappen`
+--
+ALTER TABLE `boodschappen`
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT voor een tabel `gebruikers`
 --
 ALTER TABLE `gebruikers`
   MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `ingrediënten`
+-- AUTO_INCREMENT voor een tabel `ingrediënten`
 --
 ALTER TABLE `ingrediënten`
   MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `keuken_type`
+-- AUTO_INCREMENT voor een tabel `keuken_type`
 --
 ALTER TABLE `keuken_type`
   MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `recepten`
+-- AUTO_INCREMENT voor een tabel `recepten`
 --
 ALTER TABLE `recepten`
   MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `recept_info`
+-- AUTO_INCREMENT voor een tabel `recept_info`
 --
 ALTER TABLE `recept_info`
-  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `ID` int(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
