@@ -93,7 +93,7 @@ html, body {
     font-size: 25px;
   }
 
-  .icon_green {
+  .updateBoodschap {
     color: var(--darker-green)!important;
     font-size: 25px;
   }
@@ -107,6 +107,11 @@ html, body {
     color: var(--darker-red)!important;
     font-size: 25px;
   }
+
+    .deleteLijst {
+        color: var(--darker-red)!important;
+        font-size: 25px;
+    }
 
   .overlay { 
     position:absolute;

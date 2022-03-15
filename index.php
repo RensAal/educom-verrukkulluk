@@ -27,6 +27,7 @@ $db = new database();
 $recept = new recept($db->getConnection());
 $recept_info = new recept_info($db->getConnection());
 $lijst = new boodschappenlijst($db->getConnection());
+$artikel = new artikel($db->getConnection());
 
 $gebruiker_ID = 1;
 /// VERWERK
@@ -39,7 +40,6 @@ http://localhost/index.php?recept_ID=4&action=detail
 $recept_ID = isset($_GET["recept_ID"]) ? $_GET["recept_ID"] : "1";
 $action = isset($_GET["action"]) ? $_GET["action"] : "homepage";
 $artikel_ID = isset($_GET["artikel_ID"]) ? $_GET["artikel_ID"] : "";
-$hoeveelheid = isset($_GET["hoeveelheid"]) ? $_GET["hoeveelheid"] : "";
 
 switch($action) {
 
@@ -58,10 +58,15 @@ switch($action) {
     }
 
     case "lijst": {
-        $lijst->boodschappenToevoegen($recept_ID, $gebruiker_ID);
         $data = $lijst->selecteerBoodschappenlijst($gebruiker_ID);
         $template = 'lijst.html.twig';
         $title = "lijst pagina";
+        break;
+    }
+
+    case "opLijst": {
+        $lijst->boodschappenToevoegen($recept_ID, $gebruiker_ID);
+        header("Location: http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=lijst");
         break;
     }
 
@@ -82,23 +87,45 @@ switch($action) {
     }
 
     case "updateBoodschap": {
+
+        $hoeveelheid = $_POST['hoeveelheid'];
+       
         $lijst->updateBoodschap($artikel_ID, $gebruiker_ID, $hoeveelheid);
-        $data = $lijst->selecteerBoodschappenlijst($gebruiker_ID);
-        $template = 'lijst.html.twig';
-        $title = "lijst pagina";
+        $artikel_data = $artikel->selecteerArtikel($artikel_ID); 
+        $data = ["success" => true, "hoeveelheid" => $hoeveelheid, "standaard_hoeveelheid" => $artikel_data['standaard_hoeveelheid'], "prijs" => $artikel_data['prijs']];
+        
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+        die();
+        
         break;
     }
 
     case "waardering": {
         $rating = $_POST['rating'];
         $recept_info->addWaardering($recept_ID, $rating);
+        
+        $data = ["success" => true, "rating" => $rating];
+        
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+        die();
+        
         break;
     }
 
     case "favoriet": {
         $favorite = $_POST['favorite'];
+
         if ($favorite == "true"){$recept_info->addFavoriet($recept_ID, $gebruiker_ID);}
         if ($favorite == "false"){$recept_info->deleteFavoriet($recept_ID, $gebruiker_ID);}
+        
+        $data = ["success" => true, "favorite" => $favorite];
+
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($data);
+        die();
+        
         break;
     }
 

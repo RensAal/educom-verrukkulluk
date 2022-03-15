@@ -11,14 +11,15 @@
 
 {% block content %}
 
-{% set totaal_prijs = 0 %}
+    {% set totaal_prijs = 0 %}
           
-        <div class="row">
-            <br> <br>
-            <h1 style="color: var(--darker-green);"> Boodschappenlijst  </h1>
-            <br> <br>
-        </div>
-        {% for record in data %}
+    <div class="row">
+        <br> <br>
+        <h1 style="color: var(--darker-green);"> Boodschappenlijst  </h1>
+        <br> <br>
+    </div>
+
+    {% for record in data %}
         <div class="row">
             <div class="col-sm-2 align-items-center">
                 <img src="assets/img/verrukkulluk-burger.png" class="center" width= "100px">
@@ -31,28 +32,28 @@
             </div>
             <div class="col-sm-2">
                 <br> <br>
-                <input type="text" id="aantal" value={{record.aantal}} size="3">
+                <input type="text" id="{{record.artikel_ID}}" value="{{record.aantal}}" data-value="{{record.standaard_hoeveelheid}}" size="5">
                 <br> <br>
             </div>
             <div class="col-sm-2">
                 <br> <br>
                 {% set prijs = record.prijs * record.aantal %}
-                <i class="fas fa-euro-sign icon"></i> <font size="5">{{ prijs|number_format(2, ',', '.')}} </font>
+                <i class="fas fa-euro-sign icon"></i> <font id="prijs_{{record.artikel_ID}}" size="5">{{ prijs|number_format(2, '.', '')}} </font>
                 <br> <br>
             </div>
             <div class="col-sm-2">
                 <br> <br>
 
-                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=updateBoodschap&artikel_ID={{record.artikel_ID}}&hoeveelheid=1">
-                    <i class="fas fa-check icon_green"></i> <font size="5"> </font>
-                </a>
+                    <i class="fas fa-check updateBoodschap" data-value="{{record.artikel_ID}}"></i> <font size="5"> </font>
+
                 <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteBoodschap&artikel_ID={{record.artikel_ID}}">
                     <i class="fas fa-trash icon"></i> <font size="5"> </font>
                 </a>
             </div>
             {% set totaal_prijs = totaal_prijs + prijs %}
         </div>
-        {% endfor %}
+    {% endfor %}
+
     <div class="row">
         <div class="col-sm-2">
             <h1 style="color: var(--darker-red);"> Totaal: </h1>
@@ -61,11 +62,11 @@
              
         </div>
         <div class="col-sm-2">
-            <i class="fas fa-euro-sign icon"></i> <font size="5">{{ totaal_prijs|number_format(2, ',', '.')}} </font>
+            <i class="fas fa-euro-sign icon"></i> <font id="totaal_prijs" size="5">{{ totaal_prijs|number_format(2, '.', '')}} </font>
         </div>
         <div class="col-sm-2">
             <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteLijst">
-                <i class="fas fa-trash icon"></i> <font size="5"> </font>
+                <i class="fas fa-trash icon"></i>
             </a>
         </div>
     </div>

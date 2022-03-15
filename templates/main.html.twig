@@ -17,7 +17,7 @@
 
     <script>
         $(document).ready( function() {
-
+            
             $(".rating").click( function() {
                 var value = $(this).attr("data-value");
                 
@@ -32,14 +32,18 @@
                             // remove the solid-class from the stars
                             $(elem).removeClass("fas");
                             var itemValue = $(elem).attr('data-value');
-                            if(itemValue <= value) {
+                            if(itemValue <= response.rating) {
                                 $(elem).addClass("fas");
                             }
-                            console.log(response)
                         }) 
+                        console.log(response)
                     }
                 })
 
+            })
+
+            $(".rating").hover( function() {
+                $(".rating").css('cursor', 'pointer');
             })
 
             $(".favorite").click( function() {
@@ -55,73 +59,56 @@
                            
                     success: function(response) { 
                         $('.favorite').each( (index, elem) => {
-                            if(!value){$(elem).removeClass("fas");}
-                            if(value){$(elem).addClass("fas");}
-                        })                   
-                            console.log(response) 
+                            if(response.favorite == 'false'){$(elem).removeClass("fas");}
+                            if(response.favorite =='true'){$(elem).addClass("fas");}
+                        })          
+                        console.log(response) 
                     }
                 })
 
+            })
+
+            $(".favorite").hover( function() {
+                $(".favorite").css('cursor', 'pointer');
             })
 
             $(".updateBoodschap").click( function() {
+                var id = $(this).attr("data-value");
+                var standaard_hoeveelheid = document.getElementById(id).getAttribute('data-value');
+                var aantal = document.getElementById(id).value;
+                var value = standaard_hoeveelheid * aantal;
+
+                var prijs = document.getElementById("prijs_"+id);
+                var totaal_prijs = document.getElementById("totaal_prijs");
                 
+                var prijs_old = Number(prijs.textContent);
+                var totaal_prijs_old = Number(totaal_prijs.textContent);
+                console.log(prijs_old)
+                console.log(totaal_prijs_old)
                 $.ajax({
                           
-                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=updateBoodschap",
+                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=updateBoodschap&artikel_ID="+id,
                     method: "POST",
-                    data: { favorite: value },
+                    data: { hoeveelheid: value},
                            
-                    success: function(response) { 
-                        $('.favorite').each( (index, elem) => {
-                            if(!value){$(elem).removeClass("fas");}
-                            if(value){$(elem).addClass("fas");}
-                        })                   
-                            console.log(response) 
+                    success: function(response) {
+                        console.log(response)  
+                        prijs.textContent = Number((response.prijs*aantal)).toFixed(2);
+                        var verschil = Number((response.prijs*aantal) - prijs_old);  
+                        totaal_prijs.textContent = Number(totaal_prijs_old + verschil).toFixed(2);
                     }
                 })
 
             })
-
-            $(".deleteBoodschap").click( function() {
-                
-             $.ajax({
-                          
-                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteBoodschap",
-                    method: "POST",
-                    data: { favorite: value },
-                           
-                    success: function(response) { 
-                        $('.favorite').each( (index, elem) => {
-                            if(!value){$(elem).removeClass("fas");}
-                            if(value){$(elem).addClass("fas");}
-                        })                   
-                            console.log(response) 
-                    }
-                })
-
+            
+            $(".updateBoodschap").hover( function() {
+                $('.updateBoodschap').css('cursor', 'pointer');
             })
 
-                $(".deleteLijst").click( function() {
-                
-                $.ajax({
-                          
-                    url: "http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=deleteLijst",
-                    method: "POST",
-                    data: { favorite: value },
-                           
-                    success: function(response) { 
-                        $('.favorite').each( (index, elem) => {
-                            if(!value){$(elem).removeClass("fas");}
-                            if(value){$(elem).addClass("fas");}
-                        })                   
-                            console.log(response) 
-                    }
-                })
+        })
 
-            })
+            
 
-        });
     </script>
 
 </head>
