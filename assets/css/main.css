@@ -103,6 +103,11 @@ html, body {
     font-size: 25px;
   }
 
+  .home_rating {
+    color: var(--lighter-orange)!important;
+    font-size: 25px;
+  }
+
   .favorite {
     color: var(--darker-red)!important;
     font-size: 25px;
