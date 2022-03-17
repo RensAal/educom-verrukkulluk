@@ -118,7 +118,7 @@ html, body {
         font-size: 25px;
     }
 
-  .overlay { 
+  .home_logo{ 
     position:absolute;
     z-index:12;
     top:10;

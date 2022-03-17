@@ -8,11 +8,7 @@
 
 	<div class="row">
 		<div class="col-md-12">
-            <div class="overlay">
-                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=homepage">
-                    <img src="assets/img/logo-v2.png" width=500px/>
-                </a>
-            </div>
+            
 			<div class="carousel slide" id="carousel-626287">
 				<ol class="carousel-indicators">
 					<li data-slide-to="0" data-target="#carousel-626287" class="active">
@@ -66,8 +62,11 @@
 
 {# Loop #}
     <div>
+    {% set new_row = true %}
+
     {% for record in data %}
-        {% if record.ID % 2 != 0 %}
+      
+        {% if new_row %}
             <div class="row">
         {%  endif  %}
 
@@ -114,9 +113,11 @@
                 </div>
             </div>
 
-        {% if record.ID % 2 == 0 %}
+        {% if not new_row %}
             </div>
         {%  endif  %}
+        {% set new_row = not new_row %}
+
     {% endfor %}
     </div>
      {# Dump #}

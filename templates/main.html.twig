@@ -18,6 +18,15 @@
     <script>
         $(document).ready( function() {
             
+            // $("#search").on("input", function(){
+            //     var value = document.getElementById("search").value;
+
+            //     $.post("http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=zoeken", { zoeken: value } );
+
+            //     document.getElementById("search").value = value;
+            //     console.log(value)
+            // })
+
             $(".rating").click( function() {
                 var value = $(this).attr("data-value");
                 
@@ -119,7 +128,20 @@
 
     <div class="row" >
         <div class="col-md-12">
-
+        <div class="overlay">
+                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=homepage">
+                    <img src="assets/img/logo-v2.png" width=500px/>
+                </a>
+                <br><br>
+                <a href="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?action=lijst">
+                    <h1 style="color: var(--darker-green);"> Boodschappenlijst  </h1>
+                </a>
+                <i class="fas fa-search icon"></i> 
+                <form action="http://localhost/educom-verrukkulluk/educom-verrukkulluk/index.php?recept_ID=&action=zoeken" method="post">
+                    <input type="text" name="zoeken" placeholder= "zoeken" onchange="this.form.submit()">
+                </form>
+                <div id="result"></div>
+            </div>
         {% block header %}
         {% endblock %}    
 

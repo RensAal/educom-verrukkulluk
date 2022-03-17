@@ -50,6 +50,21 @@ switch($action) {
         break;
     }
 
+    case "zoeken": {
+        $data = [];
+        $recepten = $recept->selecteerRecept();
+        $zoeken = $_POST['zoeken'];
+        foreach ($recepten as $record) {
+            $string = json_encode($record);
+            if ( !$zoeken or str_contains(strtolower($string),strtolower($zoeken))){
+                $data[] = $record;
+            } 
+        }
+        $template = 'homepage.html.twig';
+        $title = "homepage";
+        break;
+    }
+
     case "detail": {
         $data = $recept->selecteerRecept($recept_ID, $gebruiker_ID);
         $template = 'detail.html.twig';
@@ -97,8 +112,6 @@ switch($action) {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
         die();
-        
-        break;
     }
 
     case "waardering": {
@@ -110,8 +123,6 @@ switch($action) {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
         die();
-        
-        break;
     }
 
     case "favoriet": {
@@ -125,8 +136,6 @@ switch($action) {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($data);
         die();
-        
-        break;
     }
 
     /// etc
